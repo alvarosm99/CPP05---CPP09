@@ -2,9 +2,9 @@
 
 int main(int argc, char** argv)
 {
-	if (argc == 1 || argc > 3001)
+	if (argc < 2)
 	{
-		std::cout << "[ERROR]: The number of arguments are invalid." << std::endl;
+		std::cerr << "[ERROR]: The number of arguments are invalid." << std::endl;
 		return 1;
 	}
 	
@@ -26,11 +26,11 @@ int main(int argc, char** argv)
 				}
 			}
 
-			long val = std::atol(argv[i]);
-			if (val < 0 || val > INT_MAX)
+			char* end = NULL;
+			long val = std::strtol(argv[i], &end, 10);
+			if (*end != '\0' || val <= 0 || val > INT_MAX)
 			{
-				std::string error = "[ERROR]: Number out of range.";
-				throw std::runtime_error(error);
+				throw std::runtime_error("[ERROR]: Number out of range.");
 			}
 
 			vec.push_back(static_cast<int>(val));
@@ -38,9 +38,10 @@ int main(int argc, char** argv)
 		}
 	}
 	
-	catch(const std::exception& e)
+	catch (const std::exception& e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cerr << e.what() << std::endl;
+		return 1;
 	}
 
 	PmergeMe sequence(vec, deq);

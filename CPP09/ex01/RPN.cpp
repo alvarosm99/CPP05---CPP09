@@ -2,16 +2,9 @@
 
 RPN::RPN() {}
 
-RPN::RPN(const std::string &xpr) : _xpr(xpr)
+RPN::RPN(const std::string &xpr) : _xpr(xpr), _result(0)
 {
-	try
-	{
-		_result = parseStk(xpr);
-	}
-	catch (const std::runtime_error &e)
-	{
-		std::cout << e.what();
-	}
+    _result = parseStk(xpr);
 }
 
 RPN::RPN(const RPN &other)

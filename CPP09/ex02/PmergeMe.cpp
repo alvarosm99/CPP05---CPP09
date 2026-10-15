@@ -64,22 +64,24 @@ double PmergeMe::getDtime()
 
 void PmergeMe::printUseq()
 {
-	for (size_t i = 0; i < _uvec.size() - 1; i++)
-	{
-		std::cout << _uvec[i];
-		std::cout << " ";
-	}
-	std::cout << _uvec[_uvec.size() - 1] << std::endl;
+    for (size_t i = 0; i < _uvec.size(); i++)
+    {
+        std::cout << _uvec[i];
+        if (i + 1 < _uvec.size())
+            std::cout << " ";
+    }
+    std::cout << std::endl;
 }
 
 void PmergeMe::printSseq()
 {
-	for (size_t i = 0; i < _svec.size() - 1; i++)
-	{
-		std::cout << _svec[i];
-		std::cout << " ";
-	}
-	std::cout << _svec[_svec.size() - 1] << std::endl;
+    for (size_t i = 0; i < _svec.size(); i++)
+    {
+        std::cout << _svec[i];
+        if (i + 1 < _svec.size())
+            std::cout << " ";
+    }
+    std::cout << std::endl;
 }
 
 

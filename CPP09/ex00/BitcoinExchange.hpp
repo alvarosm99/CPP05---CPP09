@@ -3,8 +3,7 @@
 
 #include <string>
 #include <iostream>
-#include <fcntl.h>
-#include <unistd.h>
+#include <stdexcept>
 #include <map>
 #include <cstdlib>
 #include <fstream>
@@ -14,10 +13,10 @@ class BitcoinExchange
 	public:
 		BitcoinExchange();
 		BitcoinExchange(const BitcoinExchange& other);
-		BitcoinExchange operator=(const BitcoinExchange& other);
+		BitcoinExchange &operator=(const BitcoinExchange& other);
 		~BitcoinExchange();
 
-		std::map<std::string, float> getDataBase();
+		const std::map<std::string, float>& getDataBase() const;
 
 		void setYear(const std::string &year);
 		void setMonth(const std::string &year);

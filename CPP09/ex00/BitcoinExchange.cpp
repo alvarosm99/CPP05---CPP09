@@ -4,14 +4,20 @@ BitcoinExchange::BitcoinExchange() {};
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& other)
 {
-	_database = other._database;
+    _database = other._database;
+    _year = other._year;
+    _month = other._month;
+    _day = other._day;
 }
 
-BitcoinExchange BitcoinExchange::operator=(const BitcoinExchange& other)
+BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange& other)
 {
 	if (this != &other)
 	{
-		_database = other._database;
+        _database = other._database;
+        _year = other._year;
+        _month = other._month;
+        _day = other._day;
 	}
 	return *this;
 }
@@ -20,9 +26,9 @@ BitcoinExchange::~BitcoinExchange() {}
 
 
 
-std::map<std::string, float> BitcoinExchange::getDataBase()
+const std::map<std::string, float>& BitcoinExchange::getDataBase() const
 {
-	return this->_database;
+    return _database;
 }
 
 void BitcoinExchange::setYear(const std::string &year)
@@ -125,6 +131,12 @@ bool BitcoinExchange::checkDate(std::string& date)
 	if (date[5] > '1' || (date[5] == '1' && date[6] > '2') || (date[5] == '0' && date[6] == '0') || (date[8] == '0' && date[9] == '0') || (date[8] > '3') || (date[8] == '3' && date[9] > '1') || (date[5] == '0' && date[6] == '2' && date[8] > '2'))
 		return false;
 
+	if (date[5] == '0' && (date[6] == '4' || date[6] == '6' || date[6] == '9') && date[8] == '3' && date[9] == '1')
+		return false;
+
+	if (date[5] == '1' && date[6] == '1' && date[8] == '3' && date[9] == '1')
+		return false;
+
 	setYear(year);
 	setMonth(month);
 	setDay(day);
@@ -159,10 +171,10 @@ void BitcoinExchange::fileFormat(const std::string& filePath)
 	std::string line;
 
 	std::getline(userDB, line);
-	if (line != "date | value")
+	if (line == "date | value")
 	{
-		std::string error = "[ERROR]: The file '" + filePath + "' has an invalid format.";
-		throw std::runtime_error(error);
+		if (!std::getline(userDB, line))
+			return;
 	}
 
 	while (std::getline(userDB, line))
