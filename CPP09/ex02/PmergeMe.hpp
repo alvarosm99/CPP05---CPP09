@@ -9,6 +9,7 @@
 #include <utility>
 #include <algorithm>
 #include <sys/time.h>
+#include <stdexcept>
 
 class PmergeMe
 {
