@@ -170,16 +170,18 @@ void BitcoinExchange::fileFormat(const std::string& filePath)
 	std::ifstream userDB(filePath.c_str());
 	std::string line;
 
-	std::getline(userDB, line);
-	if (line == "date | value")
-	{
-		if (!std::getline(userDB, line))
-			return;
-	}
-
 	while (std::getline(userDB, line))
 	{
-			size_t separator = line.find(" | ");
+		if (line == "date | value")
+		{
+			if (!std::getline(userDB, line))
+			{
+				std::cerr << "[WARNING]: The file is empty." << std::endl;
+				return;
+			}
+		}
+
+		size_t separator = line.find(" | ");
 
 		if (separator == std::string::npos)
 		{
