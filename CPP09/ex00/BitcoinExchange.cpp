@@ -189,7 +189,7 @@ void BitcoinExchange::fileFormat(const std::string& filePath)
 			continue;
 		}
 
-			std::string dateString = line.substr(0, separator);
+		std::string dateString = line.substr(0, separator);
 
 		if (!checkDate(dateString))
 		{
