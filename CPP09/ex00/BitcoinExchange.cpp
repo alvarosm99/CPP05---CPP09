@@ -57,14 +57,6 @@ void BitcoinExchange::printDataBase() const
     }
 }
 
-void BitcoinExchange::fileExtension(const std::string& filePath, std::string ext)
-{
-	if (filePath.size() <= ext.size())
-    {
-        std::string error = "[ERROR]: The file name '" + filePath + "' is too short.";
-		throw std::runtime_error(error);
-    }
-}
 
 void BitcoinExchange::fileNotEmpty(const std::string& filePath)
 {
@@ -240,7 +232,6 @@ void BitcoinExchange::checkFile(const char* filePath)
 
 	fileExt = fileExt.substr(dot, fileExt.size());
 
-	fileExtension(filePath, fileExt);
 	fileNotEmpty(filePath);
 	fileFormat(filePath);
 }

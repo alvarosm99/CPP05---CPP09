@@ -23,7 +23,6 @@ class BitcoinExchange
 		void setDay(const std::string &year);
 
 		void checkFile(const char* filePath);
-		void fileExtension(const std::string& filePath, std::string ext);
 		void fileNotEmpty(const std::string& filePath);
 		void fileFormat(const std::string& filePath);
 		bool checkDate(std::string& date);
